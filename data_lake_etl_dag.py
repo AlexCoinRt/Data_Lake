@@ -43,7 +43,7 @@ for task in tasks:
                select user_id, pay_doc_type, pay_doc_num, account, phone, billing_period, cast(pay_date as DATE), cast(sum as DECIMAL(10,2))
                from alapenko.stg_payment where year(cast(pay_date as DATE)) = {{ execution_date.year }};"""
     
-	elif task == 'traffic':
+    elif task == 'traffic':
       
         query = """insert overwrite table alapenko.ods_traffic partition (year='{{ execution_date.year }}') 
                select user_id, cast(from_unixtime(`timestamp` div 1000) as TIMESTAMP), device_id, device_ip_addr, bytes_sent, bytes_received 
